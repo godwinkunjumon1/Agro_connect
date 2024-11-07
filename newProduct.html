@@ -1,0 +1,572 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>AgroConnect</title>
+
+    <link rel="stylesheet" href="../src/styles/style.css" />
+  </head>
+  <body class="overflow-x-hidden">
+    <nav class="bg-white-800 relative z-[55]">
+      <div class="mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex h-16 items-center justify-between">
+          <div class="flex items-center">
+            <div class="flex-shrink-0">
+              <a href="/user/dashboard.html"
+                ><img
+                  class="h-8 w-8"
+                  src="https://tailwindui.com/plus/img/logos/mark.svg?color=green&shade=500"
+                  alt="Agro Connect"
+              /></a>
+            </div>
+          </div>
+          <div class="hidden md:block group">
+            <div class="ml-4 flex items-center md:ml-6">
+              <!-- Profile dropdown -->
+              <div class="relative ml-3">
+                <div
+                  class="relative z-[55] overflow-hidden group-hover:overflow-visible"
+                >
+                  <button
+                    type="button"
+                    class="relative flex max-w-xs items-center rounded-full bg-white text-sm focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800"
+                    id="user-menu-button"
+                    aria-expanded="false"
+                    aria-haspopup="true"
+                  >
+                    <span class="absolute -inset-1.5"></span>
+                    <span class="sr-only">Open user menu</span>
+                    <img class="avatar h-8 w-8 rounded-full" src="" alt="" />
+                  </button>
+                  <!--
+                    Dropdown menu, show/hide based on menu state.
+    
+                    Entering: "transition ease-out duration-100"
+                      From: "transform opacity-0 scale-95"
+                      To: "transform opacity-100 scale-100"
+                    Leaving: "transition ease-in duration-75"
+                      From: "transform opacity-100 scale-100"
+                      To: "transform opacity-0 scale-95"
+                  -->
+                  <div
+                    class="absolute right-0 -z-10 opacity-0 group-hover:opacity-100 group-hover:z-10 mt- w-48 origin-top-right rounded-md bg-white py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none"
+                    role="menu"
+                    aria-orientation="vertical"
+                    aria-labelledby="user-menu-button"
+                    tabindex="-1"
+                  >
+                    <!-- Active: "bg-gray-100", Not Active: "" -->
+                    <a
+                      href="/user/profile.html"
+                      class="block px-4 py-2 text-sm text-gray-700"
+                      role="menuitem"
+                      tabindex="-1"
+                      id="user-menu-item-0"
+                      >Your Profile</a
+                    >
+                    <button
+                      href="#"
+                      class="block px-4 py-2 text-sm text-gray-700"
+                      role="menuitem"
+                      tabindex="-1"
+                      id="user-menu-item-2"
+                      onclick="logout()"
+                    >
+                      Sign out
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="-mr-2 flex md:hidden">
+            <!-- Mobile menu button -->
+            <button
+              type="button"
+              class="relative inline-flex items-center justify-center rounded-md bg-white p-2 text-green-400 focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800"
+              aria-controls="mobile-menu"
+              aria-expanded="false"
+              onclick="toggleMenu()"
+            >
+              <span class="absolute -inset-0.5"></span>
+              <span class="sr-only">Open main menu</span>
+              <!-- Menu open: "hidden", Menu closed: "block" -->
+              <svg
+                class="block h-6 w-6"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke-width="1.5"
+                stroke="currentColor"
+                aria-hidden="true"
+                data-slot="icon"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5"
+                />
+              </svg>
+              <!-- Menu open: "block", Menu closed: "hidden" -->
+              <svg
+                class="hidden h-6 w-6"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke-width="1.5"
+                stroke="currentColor"
+                aria-hidden="true"
+                data-slot="icon"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  d="M6 18 18 6M6 6l12 12"
+                />
+              </svg>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Mobile menu, show/hide based on menu state. -->
+      <div
+        class="absolute bg-white text-black w-full -left-full duration-300 ease-in-out md:hidden"
+        id="mobile-menu"
+      >
+        <div class="border-t border-gray-700 pb-3 pt-4">
+          <div class="flex items-center px-5">
+            <div class="flex-shrink-0">
+              <img class="avatar h-10 w-10 rounded-full" src="" alt="" />
+            </div>
+            <div class="ml-3">
+              <div
+                class="text-base font-medium leading-none text-black"
+                id="username"
+              ></div>
+              <div
+                class="text-sm font-medium leading-none text-black"
+                id="email"
+              ></div>
+            </div>
+          </div>
+          <div class="mt-3 space-y-1 px-2">
+            <a
+              href="/user/profile.html"
+              class="block rounded-md px-3 py-2 text-base font-medium text-dark-400 hover:bg-dark-700 hover:opacity-80"
+              >Your Profile</a
+            >
+            <button
+              href="#"
+              class="block rounded-md px-3 py-2 text-base font-medium text-dark-400 hover:bg-dark-700 hover:opacity-80"
+              onclick="logout()"
+            >
+              Sign out
+            </button>
+          </div>
+        </div>
+      </div>
+    </nav>
+    <header class="shadow border-b px-4 sm:px-8 relative z-[50]">
+      <div class="mx-auto py-6 flex justify-between items-center">
+        <h1 class="text-2xl md:text-3xl font-bold tracking-tight text-gray-900">
+          Add New Product Details
+        </h1>
+      </div>
+    </header>
+
+    <div class="bg-white flex flex-col items-center justify-center">
+      <div class="relative isolate px-6 lg:px-8 w-full">
+        <div
+          class="fixed inset-x-0 -top-40 -z-10 transform-gpu overflow-hidden blur-3xl sm:-top-80"
+          aria-hidden="true"
+        >
+          <div
+            class="relative left-[calc(50%-11rem)] aspect-[1155/678] w-[36.125rem] -translate-x-1/2 rotate-[30deg] bg-gradient-to-tr from-[#9eff80] to-[#6ddf22] opacity-30 sm:left-[calc(50%-30rem)] sm:w-[72.1875rem]"
+            style="
+              clip-path: polygon(
+                74.1% 44.1%,
+                100% 61.6%,
+                97.5% 26.9%,
+                85.5% 0.1%,
+                80.7% 2%,
+                72.5% 32.5%,
+                60.2% 62.4%,
+                52.4% 68.1%,
+                47.5% 58.3%,
+                45.2% 34.5%,
+                27.5% 76.7%,
+                0.1% 64.9%,
+                17.9% 100%,
+                27.6% 76.8%,
+                76.1% 97.7%,
+                74.1% 44.1%
+              );
+            "
+          ></div>
+        </div>
+
+        <main>
+          <div class="pt-[20px] mx-auto px-1 py-6 p-6" id="container">
+            <div
+              id="popUp"
+              class="w-full hidden fixed top-20 left-0 justify-center bg-transparent"
+            >
+              <div class="w-fit bg-green-300 rounded-full py-2 px-5">
+                Updated successfully
+              </div>
+            </div>
+            <div class="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8">
+              <form
+                id="updateProduct"
+                class="group"
+                novalidate
+                enctype="multipart/form-data"
+                method="post"
+              >
+                <div class="space-y-12">
+                  <div class="border-b border-gray-900/10 pb-12">
+                    <div
+                      class="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6"
+                    >
+                      <div class="sm:col-span-4">
+                        <div
+                          class="block text-sm font-medium leading-6 text-gray-900"
+                        >
+                          Product Name
+                        </div>
+                        <div class="mt-2">
+                          <input
+                            type="text"
+                            name="name"
+                            id="product_name"
+                            required
+                            class="block flex-1 border-0 bg-transparent py-1.5 pl-1 text-gray-900 placeholder:text-gray-400 sm:text-sm sm:leading-6 rounded-md shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-600 w-full sm:max-w-md invalid:[&:user-invalid]:border-red-500 peer"
+                            placeholder=""
+                          />
+                          <span
+                            class="mt-2 hidden text-sm text-red-500 peer-[&:user-invalid]:block"
+                          >
+                            Enter valid name
+                          </span>
+                        </div>
+                      </div>
+
+                      <div class="sm:col-span-4">
+                        <label
+                          for="description"
+                          class="block text-sm font-medium leading-6 text-gray-900"
+                          >Description</label
+                        >
+                        <div class="mt-2">
+                          <input
+                            type="text"
+                            name="desc"
+                            id="description"
+                            required=""
+                            class="block flex-1 border-0 bg-transparent py-1.5 pl-1 text-gray-900 placeholder:text-gray-400 sm:text-sm sm:leading-6 rounded-md shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-600 sm:max-w-md w-full invalid:[&:user-invalid]:border-red-500 peer"
+                            placeholder=""
+                          />
+                          <span
+                            class="mt-2 hidden text-sm text-red-500 peer-[&:user-invalid]:block"
+                          >
+                            Enter a small description
+                          </span>
+                        </div>
+                      </div>
+
+                      <div class="sm:col-span-2 sm:col-start-1">
+                        <label
+                          for="category"
+                          class="block text-sm font-medium leading-6 text-gray-900"
+                          >Category</label
+                        >
+                        <div class="mt-2">
+                          <div class="w-full max-w-sm min-w-[200px]">
+                            <div class="relative">
+                              <select
+                                id="category"
+                                name="category"
+                                required=""
+                                class="w-full bg-transparent placeholder:text-slate-400 text-slate-700 text-sm border border-slate-200 rounded pl-3 pr-8 py-2 transition duration-300 ease focus:outline-none focus:border-slate-400 hover:border-slate-400 shadow-sm focus:shadow-md appearance-none cursor-pointer invalid:[&:user-invalid]:border-red-500 peer"
+                              >
+                                <option value="Select Unit" class="hidden">
+                                  Select Category
+                                </option>
+                                <option value="Diary Product" class="">
+                                  Diary Product
+                                </option>
+                                <option value="Vegetables" class="">
+                                  Vegetables
+                                </option>
+                                <option value="Fruit" class="">Fruit</option>
+                                <option value="Meat and Poultry" class="">
+                                  Meat and Poultry
+                                </option>
+                              </select>
+                              <span
+                                class="mt-2 hidden text-sm text-red-500 peer-[&:user-invalid]:block"
+                              >
+                                Choose a category
+                              </span>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+
+                      <div class="col-span-full">
+                        <label
+                          for=""
+                          class="block text-sm font-medium leading-6 text-gray-900"
+                          >Banner Image</label
+                        >
+                        <div class="mt-2 flex items-center gap-x-3">
+                          <img
+                            src=""
+                            alt=""
+                            class="product_image mt-2 h-[200px] w-[200px] object-cover hidden"
+                            id="banner_image_preview"
+                          />
+                          <label for="banner_image" class="cursor-pointer"
+                            ><span
+                              class="label px-5 bg-green-600 text-white py-2 rounded-md"
+                              >Add Image</span
+                            ><input
+                              type="file"
+                              accept="image/*"
+                              name="banner_image"
+                              id="banner_image"
+                              class="hidden"
+                              required
+                          /></label>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="border-b border-gray-900/10 pb-12">
+                    <h2 class="text-base font-semibold leading-7 text-gray-900">
+                      Rate and quantity
+                    </h2>
+                    <p class="mt-1 text-sm leading-6 text-gray-600">
+                      Please provide price per unit details
+                    </p>
+
+                    <div
+                      class="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6"
+                    >
+                      <div class="sm:col-span-4">
+                        <label
+                          for="price_per_unit"
+                          class="block text-sm font-medium leading-6 text-gray-900"
+                          >Price Per Unit</label
+                        >
+                        <div class="mt-2">
+                          <input
+                            name="price_per_unit"
+                            type="number"
+                            id="price_per_unit"
+                            required
+                            min="1"
+                            step="0.01"
+                            class="price_per_unit capitalize block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 invalid:[&:user-invalid]:border-red-500 peer"
+                          />
+                          <span
+                            class="mt-2 hidden text-sm text-red-500 peer-[&:user-invalid]:block"
+                          >
+                            Enter valid quantity
+                          </span>
+                        </div>
+                      </div>
+
+                      <div class="sm:col-span-4">
+                        <label
+                          for="stock_available"
+                          class="block text-sm font-medium leading-6 text-gray-900"
+                          >Available Stock</label
+                        >
+                        <div class="mt-2">
+                          <input
+                            name="stock_available"
+                            type="number"
+                            id="stock_available"
+                            required
+                            min="0"
+                            class="capitalize block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 invalid:[&:user-invalid]:border-red-500 peer"
+                          />
+                          <span
+                            class="mt-2 hidden text-sm text-red-500 peer-[&:user-invalid]:block"
+                          >
+                            Enter valid quantity
+                          </span>
+                        </div>
+                      </div>
+
+                      <div class="sm:col-span-2 sm:col-start-1">
+                        <label
+                          for="unit"
+                          class="block text-sm font-medium leading-6 text-gray-900"
+                          >Unit</label
+                        >
+                        <div class="mt-2">
+                          <div class="w-full max-w-sm min-w-[200px]">
+                            <div class="relative">
+                              <select
+                                id="unit"
+                                name="unit"
+                                class="w-full bg-transparent placeholder:text-slate-400 text-slate-700 text-sm border border-slate-200 rounded pl-3 pr-8 py-2 transition duration-300 ease focus:outline-none focus:border-slate-400 hover:border-slate-400 shadow-sm focus:shadow-md appearance-none cursor-pointer"
+                              >
+                                <option value="Select Unit" class="hidden">
+                                  Select Unit
+                                </option>
+                                <option value="kg" class="">kg</option>
+                                <option value="litre" class="">litre</option>
+                                <option value="item" class="">item</option>
+                              </select>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="mt-6 flex items-center justify-end gap-x-6">
+                  <button
+                    type="submit"
+                    class="rounded-md bg-green-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-green-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-green-600 group-invalid:pointer-events-none group-invalid:opacity-30"
+                  >
+                    Save
+                  </button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </main>
+
+        <div
+          class="fixed inset-x-0 top-[calc(100%-13rem)] -z-10 transform-gpu overflow-hidden blur-3xl sm:top-[calc(100%-30rem)]"
+          aria-hidden="true"
+        >
+          <div
+            class="relative left-[calc(50%+3rem)] aspect-[1155/678] w-[36.125rem] -translate-x-1/2 bg-gradient-to-tr from-[#79ac62] to-[#88ec60] opacity-30 sm:left-[calc(50%+36rem)] sm:w-[72.1875rem]"
+            style="
+              clip-path: polygon(
+                74.1% 44.1%,
+                100% 61.6%,
+                97.5% 26.9%,
+                85.5% 0.1%,
+                80.7% 2%,
+                72.5% 32.5%,
+                60.2% 62.4%,
+                52.4% 68.1%,
+                47.5% 58.3%,
+                45.2% 34.5%,
+                27.5% 76.7%,
+                0.1% 64.9%,
+                17.9% 100%,
+                27.6% 76.8%,
+                76.1% 97.7%,
+                74.1% 44.1%
+              );
+            "
+          ></div>
+        </div>
+      </div>
+    </div>
+
+    <script type="module">
+      import { pb, logout } from "../pocketbase.js";
+      import defaultAvatar from "../src/assets/default.jpg";
+      window.logout = logout;
+
+      if (pb.authStore.isValid) {
+        await pb.collection("farmers").authRefresh();
+      }
+
+      if (!pb.authStore.isValid) {
+        window.location.replace("/register/login.html");
+      }
+      if (!pb.authStore.model.verified) {
+        window.location.replace("/register/verify.html");
+      } else {
+        const username = document.getElementById("username");
+        const email = document.getElementById("email");
+        username.innerHTML = pb.authStore.model.name;
+
+        email.innerHTML = pb.authStore.model.email;
+        const avatars = document.querySelectorAll(".avatar");
+        avatars.forEach((element) => {
+          element.src =
+            pb.files.getUrl(pb.authStore.model, pb.authStore.model.avatar) ||
+            defaultAvatar;
+        });
+
+        let preview = document.getElementById("banner_image_preview");
+        document
+          .getElementById("banner_image")
+          .addEventListener("change", (e) => {
+            let file = e.target.files[0];
+            if (file) {
+              preview.src = URL.createObjectURL(file);
+              preview.style.display = "block";
+              document.querySelector(".label").innerHTML = "Change";
+            }
+          });
+
+        const form = document.getElementById("updateProduct");
+        form.addEventListener("submit", async (e) => {
+          e.preventDefault();
+          const formData = new FormData(e.target);
+          console.log(formData);
+
+          let productDetail = {
+            name: formData.get("name"),
+            price_per_unit: parseInt(formData.get("price_per_unit")),
+            unit: formData.get("unit"),
+            desc: formData.get("desc"),
+            banner_image: formData.get("banner_image"),
+            category: formData.get("category"),
+          };
+
+          console.log(productDetail);
+
+          let stockDetail = {
+            stock_available: formData.get("stock_available"),
+          };
+
+          try {
+            const productAdded = await pb
+              .collection("products")
+              .create(productDetail);
+
+            stockDetail.product = productAdded.id;
+            stockDetail.farmer = pb.authStore.model.id;
+
+            const stockAdded = await pb.collection("stock").create(stockDetail);
+
+            let popup = document.getElementById("popUp");
+            popup.classList.remove("hidden");
+            popup.classList.add("flex");
+            setTimeout(() => {
+              popup.classList.remove("flex");
+              popup.classList.add("hidden");
+            }, 1000);
+            location.replace("/user/dashboard.html");
+          } catch (err) {
+            console.error(err);
+          }
+        });
+      }
+    </script>
+    <script>
+      let mobileMenu = document.getElementById("mobile-menu");
+      function toggleMenu() {
+        if (mobileMenu.classList.contains("-left-full")) {
+          mobileMenu.classList.remove("-left-full");
+        } else {
+          mobileMenu.classList.add("-left-full");
+        }
+      }
+    </script>
+  </body>
+</html>
